@@ -17,6 +17,10 @@ let isDialogActive = false;
 let isMobile = false;
 let showControls = false; 
 let upButton, downButton, leftButton, rightButton, interactButton;
+let isMovingUp = false;
+let isMovingDown = false;
+let isMovingLeft = false;
+let isMovingRight = false;
 
 // ! - MOBILE -
 function checkIfMobile() {
@@ -107,27 +111,68 @@ function createMobileControls() {
     document.body.appendChild(rightButton);
     document.body.appendChild(interactButton);
 
-    upButton.addEventListener('click', () => handleMovement('up'));
-    downButton.addEventListener('click', () => handleMovement('down'));
-    leftButton.addEventListener('click', () => handleMovement('left'));
-    rightButton.addEventListener('click', () => handleMovement('right'));
+    upButton.addEventListener('touchstart', () => handleTouchStart('up'));
+    downButton.addEventListener('touchstart', () => handleTouchStart('down'));
+    leftButton.addEventListener('touchstart', () => handleTouchStart('left'));
+    rightButton.addEventListener('touchstart', () => handleTouchStart('right'));
+
+    upButton.addEventListener('touchend', () => handleTouchEnd('up'));
+    downButton.addEventListener('touchend', () => handleTouchEnd('down'));
+    leftButton.addEventListener('touchend', () => handleTouchEnd('left'));
+    rightButton.addEventListener('touchend', () => handleTouchEnd('right'));
 }
 
 function handleMovement(direction) {
     switch (direction) {
         case 'up':
-            player.dy = -player.speed;
+            player.dy = isMovingUp ? -player.speed : 0;
             break;
         case 'down':
-            player.dy = player.speed;
+            player.dy = isMovingDown ? player.speed : 0;
             break;
         case 'left':
-            player.dx = -player.speed;
+            player.dx = isMovingLeft ? -player.speed : 0;
             break;
         case 'right':
-            player.dx = player.speed;
+            player.dx = isMovingRight ? player.speed : 0;
             break;
     }
+}
+
+function handleTouchStart(direction) {
+    switch (direction) {
+        case 'up':
+            isMovingUp = true;
+            break;
+        case 'down':
+            isMovingDown = true;
+            break;
+        case 'left':
+            isMovingLeft = true;
+            break;
+        case 'right':
+            isMovingRight = true;
+            break;
+    }
+    handleMovement(direction);
+}
+
+function handleTouchEnd(direction) {
+    switch (direction) {
+        case 'up':
+            isMovingUp = false;
+            break;
+        case 'down':
+            isMovingDown = false;
+            break;
+        case 'left':
+            isMovingLeft = false;
+            break;
+        case 'right':
+            isMovingRight = false;
+            break;
+    }
+    handleMovement(direction);
 }
 
 function executeInteraction() {
