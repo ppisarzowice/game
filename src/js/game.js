@@ -111,15 +111,15 @@ function createMobileControls() {
     document.body.appendChild(rightButton);
     document.body.appendChild(interactButton);
 
-    upButton.addEventListener('touchstart', () => handleTouchStart('up'));
-    downButton.addEventListener('touchstart', () => handleTouchStart('down'));
-    leftButton.addEventListener('touchstart', () => handleTouchStart('left'));
-    rightButton.addEventListener('touchstart', () => handleTouchStart('right'));
+    upButton.addEventListener('touchstart', (event) => handleTouchStart('up', event));
+    downButton.addEventListener('touchstart', (event) => handleTouchStart('down', event));
+    leftButton.addEventListener('touchstart', (event) => handleTouchStart('left', event));
+    rightButton.addEventListener('touchstart', (event) => handleTouchStart('right', event));
 
-    upButton.addEventListener('touchend', () => handleTouchEnd('up'));
-    downButton.addEventListener('touchend', () => handleTouchEnd('down'));
-    leftButton.addEventListener('touchend', () => handleTouchEnd('left'));
-    rightButton.addEventListener('touchend', () => handleTouchEnd('right'));
+    upButton.addEventListener('touchend', (event) => handleTouchEnd('up', event));
+    downButton.addEventListener('touchend', (event) => handleTouchEnd('down', event));
+    leftButton.addEventListener('touchend', (event) => handleTouchEnd('left', event));
+    rightButton.addEventListener('touchend', (event) => handleTouchEnd('right', event));
 }
 
 function handleMovement(direction) {
@@ -139,7 +139,8 @@ function handleMovement(direction) {
     }
 }
 
-function handleTouchStart(direction) {
+function handleTouchStart(direction, event) {
+    event.preventDefault();
     switch (direction) {
         case 'up':
             isMovingUp = true;
@@ -157,7 +158,8 @@ function handleTouchStart(direction) {
     handleMovement(direction);
 }
 
-function handleTouchEnd(direction) {
+function handleTouchEnd(direction, event) {
+    event.preventDefault();
     switch (direction) {
         case 'up':
             isMovingUp = false;
