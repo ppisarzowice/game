@@ -71,6 +71,8 @@ function createArrowButton(direction, x, y) {
     button.style.cursor = 'pointer';
     button.style.zIndex = '1000';
 
+    button.addEventListener('contextmenu', (e) => e.preventDefault());
+
     return button;
 }
 
@@ -111,15 +113,15 @@ function createMobileControls() {
     document.body.appendChild(rightButton);
     document.body.appendChild(interactButton);
 
-    upButton.addEventListener('touchstart', () => handleTouchStart('up'));
-    downButton.addEventListener('touchstart', () => handleTouchStart('down'));
-    leftButton.addEventListener('touchstart', () => handleTouchStart('left'));
-    rightButton.addEventListener('touchstart', () => handleTouchStart('right'));
+    upButton.addEventListener('pointerdown', () => handleTouchStart('up'));
+    downButton.addEventListener('pointerdown', () => handleTouchStart('down'));
+    leftButton.addEventListener('pointerdown', () => handleTouchStart('left'));
+    rightButton.addEventListener('pointerdown', () => handleTouchStart('right'));
 
-    upButton.addEventListener('touchend', () => handleTouchEnd('up'));
-    downButton.addEventListener('touchend', () => handleTouchEnd('down'));
-    leftButton.addEventListener('touchend', () => handleTouchEnd('left'));
-    rightButton.addEventListener('touchend', () => handleTouchEnd('right'));
+    upButton.addEventListener('pointerup', () => handleTouchEnd('up'));
+    downButton.addEventListener('pointerup', () => handleTouchEnd('down'));
+    leftButton.addEventListener('pointerup', () => handleTouchEnd('left'));
+    rightButton.addEventListener('pointerup', () => handleTouchEnd('right'));
 }
 
 function handleMovement(direction) {
