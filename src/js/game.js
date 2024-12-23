@@ -95,6 +95,8 @@ function createInteractButton(x, y) {
 
     button.addEventListener('click', () => executeInteraction());
 
+    button.addEventListener('contextmenu', (e) => e.preventDefault());
+
     return button;
 }
 
